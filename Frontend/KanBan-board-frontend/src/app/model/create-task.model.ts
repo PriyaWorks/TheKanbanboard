@@ -5,4 +5,5 @@ export class CreateTask{
     taskduedate: string;
     taskpriority: string;
     taskdescription: string;
+    id: string;
 }

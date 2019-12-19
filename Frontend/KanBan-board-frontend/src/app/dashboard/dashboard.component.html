@@ -1,17 +1,28 @@
 <div class="container">
+    <div class="add-icon">
+    <span><i class="material-icons icon-custom" matTooltipPosition="above" matTooltip="Create new Project" [routerLink]="['/project/create-project']">
+        add
+        </i></span>
+    </div>
     <div class="row ">
-    <div class="col-sm-4" *ngFor="let project of projects; let i = index"   
-        [routerLink]="['/kanban-board', project._id]">
-        <div class="card " style="width: 18rem;">
-            <div class="card-header" >{{ project.projectname }}</div>
-            <h6  class="card-subtitle" id="projectid" [hidden]=true>{{project._id}}</h6>
-        <div class="card-body" >
-               
-            <p class="card-text">
-                Start Date: {{project.projectstartdate}} <br>
-                End Date: {{project.projectduedate}}
-            </p>
-        </div>
+    <div class="col-sm-4" *ngFor="let project of projects" >
+        <div class="card m-3" style="width: 18rem;">
+            <div class="card-header" >
+                <h5 class="mr-auto">{{ project.projectname }}</h5>
+                <span class="card-menu ml-auto" [matMenuTriggerFor]="beforeMenu"><i class="material-icons">menu_open</i></span>
+                    <mat-menu #beforeMenu="matMenu" xPosition="before">
+                        <button mat-menu-item [routerLink]="['/kanban-board', project._id]">Kanban Board</button>
+                        <button mat-menu-item [routerLink]="['/project/update-project', project._id]">Update Project</button>
+                        <button mat-menu-item>Delete Project</button>
+                    </mat-menu>
+            </div>
+            <div class="card-body" >
+                
+                <p class="card-text m-2">
+                    Start Date: {{project.projectstartdate | date: 'shortDate' }} <br>
+                    End Date: {{project.projectduedate | date: 'shortDate' }}
+                </p>
+            </div>
         </div>
     </div>
     </div>  

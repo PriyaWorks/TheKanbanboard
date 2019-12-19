@@ -3,7 +3,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTooltipModule,
-  MatToolbarModule,MatIconModule, MatProgressSpinnerModule, MatFormFieldModule
+  MatSnackBarModule,MatIconModule, MatProgressSpinnerModule, MatMenuModule
 } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +28,8 @@ import { TaskComponent } from './task/task.component';
 import { CreateTaskComponent } from './task/create-task/create-task.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { UpdateProjectComponent } from './project/update-project/update-project.component';
+import { ErrorComponent } from './error/error.component';
+import { UpdateTaskComponent } from './task/update-task/update-task.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { UpdateProjectComponent } from './project/update-project/update-project.
     KanbanBoardComponent,
     TaskComponent,
     CreateTaskComponent,
-    UpdateProjectComponent
+    UpdateProjectComponent,
+    ErrorComponent,
+    UpdateTaskComponent
     
   ],
   imports: [
@@ -51,6 +55,8 @@ import { UpdateProjectComponent } from './project/update-project/update-project.
     AppRoutingModule,
     MatCardModule,
     DragDropModule,
+    MatSnackBarModule,
+    MatMenuModule,
     FormsModule, ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),

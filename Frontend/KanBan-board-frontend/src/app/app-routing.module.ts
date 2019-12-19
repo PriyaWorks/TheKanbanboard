@@ -10,6 +10,7 @@ import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
 import { CreateTaskComponent } from './task/create-task/create-task.component';
 import { AuthGuard } from './services/auth.gaurd';
 import { UpdateProjectComponent } from './project/update-project/update-project.component';
+import { UpdateTaskComponent } from './task/update-task/update-task.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
@@ -20,8 +21,9 @@ const routes: Routes = [
   { path: 'iteractive-form', component: InteractiveFormComponent,  canActivate: [AuthGuard]},
   { path: 'project/create-project', component: CreateProjectComponent, canActivate: [AuthGuard]},
   { path: 'project/update-project/:_id', component: UpdateProjectComponent, canActivate: [AuthGuard]},
-  { path: 'kanban-board/:_id', component: KanbanBoardComponent, canActivate: [AuthGuard]},
-  { path: 'task/create-task', component: CreateTaskComponent, canActivate: [AuthGuard]},
+  { path: 'kanban-board/:id', component: KanbanBoardComponent, canActivate: [AuthGuard]},
+  { path: 'kanban-board/create-task/:projectid', component: CreateTaskComponent, canActivate: [AuthGuard]},
+  { path: 'kanban-board/update-task/:id', component: UpdateTaskComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({

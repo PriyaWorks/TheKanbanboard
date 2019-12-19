@@ -4,6 +4,12 @@ import { Task } from '../model/task.model';
 import { ProjectService } from '../services/project.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
+//import 'rxjs/add/observable/combineLatest';
+
+var _id: string;
+var projectval: string;
+var id: string;
 
 @Component({
   selector: 'app-kanban-board',
@@ -11,11 +17,12 @@ import { Observable, observable } from 'rxjs';
   styleUrls: ['./kanban-board.component.css']
 })
 export class KanbanBoardComponent implements OnInit {
-
+  projectname: string;
   status: string;
-  _id: string;
+  
    taskStatus: string;
   tasks: Task = {
+    id: '',
     _id: '',
     taskname: '',
     taskstatus: '',
@@ -25,22 +32,29 @@ export class KanbanBoardComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private projectService: ProjectService,
-              private router: Router
+              private router: Router, private authService: AuthService
    ) { }
 
   ngOnInit() {
     
     this.activatedRoute.paramMap.subscribe(params => {
-      let id = params.get('_id');
-      console.log(id);
-      return this.projectService.getTaskOnKanbanBoard(id).then(data => {
-        this.tasks = data;
+      _id = params.get('id');
+      console.log(params);
+      localStorage.setItem('projectval', _id)
+      return this.projectService.getTaskOnKanbanBoard(_id).then(data => {
+        this.tasks = data.tasks;
+        //localStorage.setItem('_id', _id);
         console.log(data);
       }).catch(err => {
         console.log(err);
       });
     });
     
-    } 
+  }
+  goToCreateTask(){
+    id = localStorage.getItem('projectval')
+    console.log(id);
+    this.router.navigate(['kanban-board/create-task',id]);
+  }
 
 }

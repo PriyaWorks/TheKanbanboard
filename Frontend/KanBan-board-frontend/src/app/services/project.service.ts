@@ -5,13 +5,15 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { CreateTask } from '../model/create-task.model';
+import { MatSnackBar } from '@angular/material'; 
 
-var id: string;
+var _id: string;
+var projectCreatorName: string;
+var projectid: string;
 
 @Injectable({
   providedIn: 'root'
 })
-
 
 export class ProjectService {
 
@@ -21,15 +23,15 @@ export class ProjectService {
   loginname: string;
 
   constructor(private http:HttpClient, private router: Router, private authService: AuthService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute, private snackbar: MatSnackBar) { }
 
   getTaskOnKanbanBoard(_id): Promise<any>{
     let headers = new HttpHeaders();
     console.log(_id)
-    id = _id;
+    _id = _id;
     return this.http.get('http://localhost:3700/api/project/taskbyprojectid', {
       headers : new HttpHeaders({
-        'id' :  id 
+        'id' :  _id 
         })
         
     }).toPromise();
@@ -37,27 +39,39 @@ export class ProjectService {
   }
 
   createTask(task : CreateTask){
-    return this.http.post('http://localhost:3700/api/project/addtaskbyprojectid/?projectid=' + id, task)
-      .subscribe(res => { console.log(res); });
+    projectid = localStorage.getItem('projectval')
+    console.log(projectid);
+    return this.http.post('http://localhost:3700/api/project/addtaskbyprojectid', task, {
+      headers : new HttpHeaders({
+        'id' : projectid
+      })
+    }).subscribe(res => { 
+      this.snackbar.open(res['message'], '', {
+        duration: 5000,
+        verticalPosition: 'top'
+      })  
+    });
   }
 
   createProject(project : CreateProject){
-    this.loginname = this.authService.getName();
-    var ram = this.loginname 
-    return this.http.post('http://localhost:3700/api/project/addproject', project)
+    projectCreatorName = this.authService.getName();
+    //console.log(projectCreatorName);
+    return this.http.post('http://localhost:3700/api/project/addproject', project ,{
+      headers : new HttpHeaders({
+        'projectcreator' : projectCreatorName
+        })
+    })
     .subscribe(res => {
-      console.log(res);
+      this.snackbar.open(res['message'], '', {
+      duration: 5000,
+      verticalPosition: 'top'
     });
+  });
   }
 
   dashboardForRegisterUser(): Promise<any>{
     this.fullname = this.authService.getName();
-    //console.log(this.authService.getRegistername())
-    //console.log(this.authService.getLoginName())
-    // if(this.fullname == null){
-    //     this.fullname = this.authService.getLoginName();
-    // } 
-    console.log(this.fullname)
+    //console.log(this.fullname)
     let headers = new HttpHeaders();
     return this.http.get('http://localhost:3700/api/project/projectbyprojectcreator', {
       headers : new HttpHeaders({

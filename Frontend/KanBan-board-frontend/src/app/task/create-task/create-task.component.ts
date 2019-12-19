@@ -6,6 +6,8 @@ import { ProjectService } from '../../services/project.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
+var id: string;
+
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
@@ -15,7 +17,7 @@ export class CreateTaskComponent implements OnInit {
 
   datePickerConfig: Partial<BsDatepickerConfig>;
 
-  statusdropdown = ['To Do','In-Process','Done'];
+  statusdropdown = ['To Do','In Process','Done'];
   prioritydropdown = ['High','Medium','Low'];
   statusdropdownHasError = false;
   task: CreateTask = {
@@ -25,6 +27,7 @@ export class CreateTaskComponent implements OnInit {
     taskduedate: '',
     taskpriority: 'select',
     taskdescription: '',
+    id: ''
   }
 
   isLoading: boolean = false;
@@ -46,11 +49,10 @@ export class CreateTaskComponent implements OnInit {
       });
     }
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(params => {
-      let id = params.get('_id');
-      console.log(id);
-      
-    });
+    //  this.activatedRoute.paramMap.subscribe(params => {
+    //  //let id = params.get('_id');
+    //   console.log(params);
+    // });
     
     }
   
@@ -59,8 +61,11 @@ export class CreateTaskComponent implements OnInit {
     if(taskForm.invalid){ return; }
     this.isLoading = true;
     this.projectService.createTask(taskForm.value);
-    this.router.navigate(['/kanban-board/:_id']);
+    //this.router.navigate(['/kanban-board']);
     console.log(taskForm.value);
+    id = localStorage.getItem('projectval')
+    console.log(id);
+    this.router.navigate(['../', {id : id}], {relativeTo: this.activatedRoute});
   }
-
+  
 }

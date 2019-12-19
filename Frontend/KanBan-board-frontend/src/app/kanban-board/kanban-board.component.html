@@ -1,7 +1,13 @@
 
 <div class="container">
-        <h3 class=" p-3 mt-5">Kanban Board</h3>
-        <!-- <button class="btn m-3" (click)="onAddTask()">Add task</button> -->
+    <div class="add-icon" (click)="goToCreateTask()">
+        <span><i class="material-icons icon-custom" matTooltipPosition="above" matTooltip="Create new Task" 
+            >
+            add
+        </i></span>
+    </div>
+    <!-- [routerLink]="['/project',task._id,/task/create-task]" -->
+        <h3 class=" p-3 mt-5"> Kanban Board</h3>
         <div class="row">
             <mat-card class="col-sm todo">TO DO</mat-card>
             <mat-card class="col-sm in-process">IN PROCESS</mat-card>
@@ -14,33 +20,44 @@
                 <ng-container *ngFor="let task of tasks" >            
                 <li class="card-display" *ngIf="task.taskstatus == 'To Do'" id="list">
                 <div class="card m-2" style="width: 18rem;" cdkDrag>
+                    <div class="card-header" >
+                        <h5 class="card-title mr-auto" id="taskName">{{ task.taskname }}</h5>
+                    <span class="card-menu  ml-auto" [matMenuTriggerFor]="beforeMenu"><i class="material-icons">menu_open</i></span>
+                    <mat-menu #beforeMenu="matMenu" xPosition="before">
+                        <button mat-menu-item [routerLink]="['/kanban-board/update-task', task._id]">Update Task</button>
+                        <button mat-menu-item>Delete Task</button>
+                    </mat-menu>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title" id="taskName">{{task.taskname}}</h5>
-                        <h6 id="taskId">{{task._id}}</h6>
-                        <p class="card-text">         
+                        <p class="card-text m-1">         
                             status: {{task.taskstatus}}<br>
-                            Start Date: {{task.taskstartdate}}<br>
-                            End Date: {{task.taskduedate}}
+                            Start Date: {{task.taskstartdate  | date: 'shortDate' }}<br>
+                            End Date: {{task.taskduedate  | date: 'shortDate' }}
                         </p>
                     </div>
                 </div>
                 </li>
                 </ng-container>
-                
                 </ul>
-            </div>
-                   
+            </div>     
             <div class="col-sm bg-color row-eq-height" id="In-Process" >
                 <ul cdkDropList [cdkDropListData]="tasks" class="example-list" (cdkDropListDropped)="drop($event)">
                     <ng-container *ngFor="let task of tasks"> 
-                    <li class="card-display" *ngIf="task.taskstatus == 'In-Process'">
+                    <li class="card-display" *ngIf="task.taskstatus == 'In Process'">
                     <div class="card m-2" style="width: 18rem;" cdkDrag>
+                        <div class="card-header" >
+                            <h5 class="card-title mr-auto" id="taskName">{{ task.taskname }}</h5>
+                        <span class="card-menu  ml-auto" [matMenuTriggerFor]="beforeMenu"><i class="material-icons">menu_open</i></span>
+                        <mat-menu #beforeMenu="matMenu" xPosition="before">
+                            <button mat-menu-item [routerLink]="['/kanban-board/update-task', task._id]">Update Task</button>
+                            <button mat-menu-item>Delete Task</button>
+                        </mat-menu>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{task.taskname}}</h5>
-                            <p class="card-text">
+                            <p class="card-text m-1">
                                 status: {{task.taskstatus}}<br>
-                                Start Date: {{task.taskstartdate}}<br>
-                                End Date: {{task.taskduedate}}
+                                Start Date: {{task.taskstartdate  | date: 'shortDate'}}<br>
+                                End Date: {{task.taskduedate  | date: 'shortDate'}}
                             </p>
                         </div>
                     </div>
@@ -53,12 +70,19 @@
                     <ng-container *ngFor="let task of tasks"> 
                     <li class="card-display" *ngIf="task.taskstatus == 'Done'">
                     <div class="card m-2" style="width: 18rem;" cdkDrag>
+                        <div class="card-header" >
+                            <h5 class="card-title mr-auto" id="taskName">{{ task.taskname }}</h5>
+                        <span class="card-menu  ml-auto" [matMenuTriggerFor]="beforeMenu"><i class="material-icons">menu_open</i></span>
+                        <mat-menu #beforeMenu="matMenu" xPosition="before">
+                            <button mat-menu-item [routerLink]="['/kanban-board/update-task', task._id]">Update Task</button>
+                            <button mat-menu-item>Delete Task</button>
+                        </mat-menu>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{task.taskname}}</h5>
-                            <p class="card-text">
+                            <p class="card-text m-1">
                                 status: {{task.taskstatus}}<br>
-                                Start Date: {{task.taskstartdate}}<br>
-                                End Date: {{task.taskduedate}}
+                                Start Date: {{task.taskstartdate  | date: 'shortDate'}}<br>
+                                End Date: {{task.taskduedate  | date: 'shortDate'}}
                             </p>
                         </div>
                     </div>
