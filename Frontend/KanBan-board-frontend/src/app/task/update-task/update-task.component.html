@@ -3,21 +3,21 @@
             <mat-spinner *ngIf="isLoading"></mat-spinner>
         <div class="heading">
         <h3 class="">
-            Create Task
+            Update Task
         </h3>
         </div>
     <div class="row justify-content-center">
         <div class="col-sm-10">
     <div class="animated bounceIn slow form-custom" >
-    <form #taskForm="ngForm" novalidate (ngSubmit)="onCreateTask(taskForm)" class="form-align">
+    <form #taskForm="ngForm" novalidate (ngSubmit)="onUpdateTask(taskForm)" class="form-align">
         <div class="form-group row justify-content-center">
         
             <label for="taskname" class="col-sm-2 col-form-label mt-2">Task name</label>
             <div class="col-sm-6">
-                <input type="text" #taskname="ngModel" [class.is-invalid]="taskname.invalid && taskname.touched"
-                    class="form-control mt-2" name="taskname" id="taskname" placeholder="Enter your task"
-                    [(ngModel)]="task.taskname" required>
-                <span class="text-danger mt-2" [class.d-none]="taskname.valid || taskname.untouched">Task name is required</span>
+                <input type="text" #taskname="ngModel" readonly
+                    class="form-control mt-2" name="taskname" id="taskname" 
+                    [(ngModel)]="task.taskname">
+                
             </div>
         </div>
         <div class="form-group row justify-content-center" >
@@ -57,31 +57,27 @@
         <div class="form-group row justify-content-center">
             <label for="taskstartdate" class="col-sm-2 col-form-label mt-2">Task start date</label>
             <div class="col-sm-6">
-            <input type="text"  #taskstartdate="ngModel" [class.is-invalid]="taskstartdate.invalid && taskstartdate.touched"
-            class="form-control mt-2" name="projectstartdate" placeholder="Enter task start date" id="taskstartdate"
-                [bsConfig]="datePickerConfig" [(ngModel)]="task.taskstartdate" bsDatepicker [bsConfig]="{ isAnimated: true }" required>
-            <span class="text-danger mt-2" [class.d-none]="taskstartdate.valid || taskstartdate.untouched">
-                Task start date is required
-            </span>
+            <input type="text"  #taskstartdate="ngModel" readonly
+            class="form-control mt-2" name="taskstartdate" id="taskstartdate"
+               [(ngModel)]="task.taskstartdate" >
+            
             </div>
         </div>
         <div class="form-group row justify-content-center">
             <label for="taskduedate" class="col-sm-2 col-form-label mt-2">Task end date</label>
             <div class="col-sm-6">
             <input type="text" placeholder="Enter task end date" #taskduedate="ngModel" 
-            [class.is-invalid]="taskduedate.invalid && taskduedate.touched" class="form-control mt-2" name="taskduedate" 
+            class="form-control mt-2" name="taskduedate" readonly
             id="taskduedate" [(ngModel)]="task.taskduedate" 
             [bsConfig]="datePickerConfig" bsDatepicker [bsConfig]="{ isAnimated: true }" required>
-            <span class="text-danger mt-2" [class.d-none]="taskduedate.valid || taskduedate.untouched">
-                Task end date is required
-            </span>  
+             
             </div>
         </div>
         
         <div class="form-group row justify-content-center">
         <button mat-raised-button type="submit" 
             [disabled]="taskForm.form.invalid || statusdropdownHasError" class="btn btn-custom">
-            Create Task
+            Update
         </button>
         </div>
     </form>

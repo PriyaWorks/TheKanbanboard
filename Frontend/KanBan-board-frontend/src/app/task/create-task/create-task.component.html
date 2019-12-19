@@ -1,4 +1,4 @@
-<div class="bg-image" >
+<div  >
         <div class="container mt-5">
                 <mat-spinner *ngIf="isLoading"></mat-spinner>
             <div class="heading">
@@ -58,7 +58,7 @@
                 <label for="taskstartdate" class="col-sm-2 col-form-label mt-2">Task start date</label>
                 <div class="col-sm-6">
                 <input type="text"  #taskstartdate="ngModel" [class.is-invalid]="taskstartdate.invalid && taskstartdate.touched"
-                class="form-control mt-2" name="projectstartdate" placeholder="Enter task start date" id="taskstartdate"
+                class="form-control mt-2" name="taskstartdate" placeholder="Enter task start date" id="taskstartdate"
                     [bsConfig]="datePickerConfig" [(ngModel)]="task.taskstartdate" bsDatepicker [bsConfig]="{ isAnimated: true }" required>
                 <span class="text-danger mt-2" [class.d-none]="taskstartdate.valid || taskstartdate.untouched">
                     Task start date is required

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import * as $ from 'jquery';
 import { AuthService } from '../services/auth.service';
-import { Subscription } from 'rxjs';
+import { Subscription, from } from 'rxjs';
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -17,7 +17,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   userIsAuthenticated: boolean = false;
   private authListenerSubs: Subscription;
   linkDisable = true;
-  constructor(private authService: AuthService, public mdbModalService: BsModalService
+  constructor(private authService: AuthService, public mdbModalService: BsModalService,
+              
               ) { }
 
   openModal(loginTemplate: TemplateRef<any>){
@@ -35,12 +36,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
       });
-    //   $(document).ready(function(){
-    //     $("li").click(function(){
-    //         var a = $("a");
-    //     });
-    // });
   }
+
+  // onLogin(){
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = true;
+  //   dialogConfig.autoFocus = true;
+  //   dialogConfig.width = "30%";
+  //   this.dialog.open(LoginComponent, dialogConfig);
+  // }
+
   onLogout(){
     this.authService.logout();
   }

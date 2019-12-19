@@ -36,3 +36,6 @@ form{
     
     justify-content: center;
 }
+mat-spinner {
+    margin: auto;
+  }

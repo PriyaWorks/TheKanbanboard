@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
 import { Router } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-create-project',
@@ -30,16 +31,19 @@ export class CreateProjectComponent implements OnInit {
     this.datePickerConfig = Object.assign({},
       {
         containerClass: 'theme-dark-blue',
-        showWeekNumbers: false
+        showWeekNumbers: false,
+        dateInputFormat: 'MM/DD/YYYY'
       });
    }
 
   ngOnInit() {
    this.loginname = this.authService.getName();
+   console.log(this.loginname);
   }
   onCreateProject(projectForm: NgForm){
     if(projectForm.invalid){ return; }
     this.isLoading = true;
+  
     this.project.projectcreator = this.loginname;
     console.log(this.loginname);
     console.log(this.project);

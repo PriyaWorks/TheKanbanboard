@@ -18,7 +18,18 @@
     -moz-box-shadow: -2px 4px 56px 0px rgba(97,97,97,1);
     box-shadow: -2px 4px 56px 0px rgba(97,97,97,1);   
     font-size: 45px;
+    border-radius: 50px;
+    margin-top: 20px;
+    margin-bottom: 38px;
 }
+
+.card-header{
+    display: -webkit-inline-box;
+}
+i.material-icons {
+    cursor: pointer;
+}
+
 /* button p{
     
     font-size: 30px;

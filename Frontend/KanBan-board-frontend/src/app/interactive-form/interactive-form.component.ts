@@ -107,7 +107,7 @@ export class InteractiveFormComponent implements OnInit {
     
   }
   
-  onCreateProject(){
+  onCreateProject(projectForm : NgForm){
     
     this.project.projectname = ques1
     this.project.projectdescription = ques2;
@@ -118,6 +118,7 @@ export class InteractiveFormComponent implements OnInit {
     this.project.projectcreator = name;
     console.log(this.project)
     this.projectService.createProject(this.project);
+    
     this.router.navigate(['/dashboard']);
   }
 

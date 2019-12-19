@@ -4,25 +4,7 @@
     color: white;
     font-size: 18px;
 }
-/* .login-form {
-    width: 350%;
-    
-}
-.login-custom{
-    position: absolute;
-    background-color: rgb(1,0,0,0.5);
-    margin: 0 auto;
-	flex:auto;
-    padding: 30px;
-    top: 210px;
-    left: 680px;
-    width: 30%;
-    z-index: 1000;
-    border-radius: 10px;
-}
-label.col-sm-2.col-form-label {
-    color: white;
-}
-p{
-    color: white;
-} */
+
+mat-spinner {
+    margin: auto;
+  }

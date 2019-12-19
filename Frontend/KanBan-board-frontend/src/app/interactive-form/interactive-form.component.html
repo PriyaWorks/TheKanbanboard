@@ -21,7 +21,7 @@
                     <span class="text-danger mt-2" [class.d-none]="projectname.valid || projectname.untouched">projectname is required</span>
                     <br>
                     <div class="form-group justify-content-center">
-                         <button mat-raised-button class="btn btn-custom m-2 " (click)="onNext1()">Next</button>
+                         <button mat-raised-button class="btn btn-custom mt-2" (click)="onNext1()">Next</button>
                     </div>
             </div>
             <div class="form-group animated bounceInUp slower p-5 question" *ngIf="isShow2">
@@ -29,7 +29,7 @@
                     <textarea type="text" #projectdescription="ngModel" 
                     class="form-control mt-2" name="projectdescription" placeholder="Enter project description" id="projectdescription"
                     [(ngModel)]="project.projectdescription" row="3"></textarea>
-                <button mat-raised-button class="btn btn-custom m-2" (click)="onNext2()">Next</button>
+                <button mat-raised-button class="btn btn-custom mt-3" (click)="onNext2()">Next</button>
             </div>
             <div class="form-group animated bounceInUp slower p-5 question" *ngIf="isShow3">
                 <label for="projectstartdate" class="mt-2">What is scheduled start date?</label>
@@ -40,7 +40,7 @@
                     Project start date is required
                 </span>
                 <br>
-                <button mat-raised-button class="btn btn-custom m-2" (click)="onNext3()">Next</button>
+                <button mat-raised-button class="btn btn-custom mt-2" (click)="onNext3()">Next</button>
             </div>
             <div class="form-group animated bounceInUp slower p-5 question" *ngIf="isShow4">
                 <label for="projectduedate" class="mt-2">What is scheduled end date?</label>
@@ -52,7 +52,7 @@
                     Project end date is required
                 </span>  
                 <br>
-                <button mat-raised-button class="btn btn-custom m-2" (click)="onNext4()">Next</button>
+                <button mat-raised-button class="btn btn-custom mt-2" (click)="onNext4()">Next</button>
             </div>
             
             <div class="form-group animated bounceInUp slower p-5 question" *ngIf="isShow5">
@@ -64,7 +64,7 @@
                     Project work limit should be required in number 
                 </span>
                 <br>
-                <button mat-raised-button class="btn btn-custom m-2" (click)="onNext5()">Next</button>
+                <button mat-raised-button class="btn btn-custom mt-2" (click)="onNext5()">Next</button>
             </div>
             <div class="form-group animated bounceInUp slower p-5 question" *ngIf="isShow6">
                 <label for="wipworklimit" class="mt-2">Set Work In Progress work limit</label>
@@ -75,7 +75,7 @@
                     Project work in progress limit should be required in number
                 </span>
                 <br>
-                <button mat-raised-button class="btn btn-custom m-2" (click)="onNext6()">Next</button>
+                <button mat-raised-button class="btn btn-custom mt-2" (click)="onNext6()">Next</button>
             </div>
             <div class="form-group animated bounceInUp slower p-5 question" *ngIf="isShow7">
                 <label for="doneworklimit" class="mt-2">Set Done Work Limit</label>
@@ -86,7 +86,7 @@
                     Project done work should be required in number
                 </span>
                 <br>
-                <button mat-raised-button class="btn btn-custom m-2" type="submit" (click)="onNext7()">
+                <button mat-raised-button class="btn btn-custom mt-2" type="submit" (click)="onNext7()">
                     Create Project
                 </button>
             </div> 

@@ -4,6 +4,8 @@ import { AuthService } from '../services/auth.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import { Project } from '../model/project.model';
 import { MdbBtnDirective } from 'angular-bootstrap-md';
+import {TooltipPosition} from '@angular/material/tooltip';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +15,7 @@ import { MdbBtnDirective } from 'angular-bootstrap-md';
 export class DashboardComponent implements OnInit {
   loginname: string;
   projectBoardId: string;
+  projectname: string;
 
   projects: Project = {
     projectname: '',
@@ -35,11 +38,11 @@ export class DashboardComponent implements OnInit {
   // this.activatedRoute.paramMap.subscribe(params => {
   //   console.log(params);
   // });
+  
   }
     
-  
-  // onCreateProject(){
-  //   this.router.navigate(['/project/create-project']);
+  // goToKanbanBoard(){
+  //   this.router.navigate([this.projects._id], { relativeTo: this.activatedRoute});
   // }
 
 }

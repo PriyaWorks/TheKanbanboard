@@ -6,15 +6,13 @@ import { ProjectService } from '../../services/project.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
-var id: string;
-
+ var id: string;
 @Component({
-  selector: 'app-create-task',
-  templateUrl: './create-task.component.html',
-  styleUrls: ['./create-task.component.css']
+  selector: 'app-update-task',
+  templateUrl: './update-task.component.html',
+  styleUrls: ['./update-task.component.css']
 })
-export class CreateTaskComponent implements OnInit {
-
+export class UpdateTaskComponent implements OnInit {
   datePickerConfig: Partial<BsDatepickerConfig>;
 
   statusdropdown = ['To Do','In Process','Done'];
@@ -23,7 +21,7 @@ export class CreateTaskComponent implements OnInit {
   task: CreateTask = {
     taskname: '',
     taskstatus: 'select',
-    taskstartdate: '',
+    taskstartdate: '2019-12-30',
     taskduedate: '',
     taskpriority: 'select',
     taskdescription: '',
@@ -39,7 +37,6 @@ export class CreateTaskComponent implements OnInit {
       this.statusdropdownHasError = false;
     }
   }
-
   constructor(private authService: AuthService, private projectService:ProjectService, private activatedRoute: ActivatedRoute,
     private router: Router) {
     this.datePickerConfig = Object.assign({},
@@ -49,24 +46,31 @@ export class CreateTaskComponent implements OnInit {
         dateInputFormat: 'YYYY-MM-DD'
       });
     }
-  ngOnInit() {
-    //  this.activatedRoute.paramMap.subscribe(params => {
-    //  //let id = params.get('_id');
-    //   console.log(params);
-    // });
-    
-    }
-  
 
-  onCreateTask(taskForm : NgForm){
+  ngOnInit() {
+    this.activatedRoute.paramMap.subscribe(params => {
+      id = params.get('_id');
+      console.log(params);
+      //localStorage.setItem('taskid', id);
+      return this.projectService.getTask(id).then(data => {
+        this.task = data;
+        localStorage.setItem('taskid', id);
+        console.log(data);
+      }).catch(err => {
+        console.log(err);
+      });
+    });
+  }
+
+  onUpdateTask(taskForm : NgForm){
     if(taskForm.invalid){ return; }
     this.isLoading = true;
-    this.projectService.createTask(taskForm.value);
-    //this.router.navigate(['/kanban-board']);
+    this.projectService.updateTask(taskForm.value);
+    // //this.router.navigate(['/kanban-board']);
     console.log(taskForm.value);
-    id = localStorage.getItem('projectval')
-    console.log(id);
+    // id = localStorage.getItem('projectval')
+    // console.log(id);
     this.router.navigate(['../', {id : id}], {relativeTo: this.activatedRoute});
   }
-  
+
 }

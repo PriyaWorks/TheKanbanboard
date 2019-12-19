@@ -2,9 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTooltipModule,
-  MatToolbarModule,MatIconModule, MatProgressSpinnerModule, MatFormFieldModule
+  MatButtonModule, MatCardModule, MatInputModule, MatTooltipModule,
+  MatSnackBarModule,MatIconModule, MatProgressSpinnerModule, MatMenuModule, 
 } from '@angular/material';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {  ModalModule} from 'ngx-bootstrap';
@@ -28,6 +29,8 @@ import { TaskComponent } from './task/task.component';
 import { CreateTaskComponent } from './task/create-task/create-task.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { UpdateProjectComponent } from './project/update-project/update-project.component';
+import { ErrorComponent } from './error/error.component';
+import { UpdateTaskComponent } from './task/update-task/update-task.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,9 @@ import { UpdateProjectComponent } from './project/update-project/update-project.
     KanbanBoardComponent,
     TaskComponent,
     CreateTaskComponent,
-    UpdateProjectComponent
+    UpdateProjectComponent,
+    ErrorComponent,
+    UpdateTaskComponent
     
   ],
   imports: [
@@ -51,6 +56,8 @@ import { UpdateProjectComponent } from './project/update-project/update-project.
     AppRoutingModule,
     MatCardModule,
     DragDropModule,
+    MatSnackBarModule,
+    MatMenuModule,
     FormsModule, ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
@@ -63,15 +70,18 @@ import { UpdateProjectComponent } from './project/update-project/update-project.
     MatTabsModule,MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
     
   ],
-  providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
+  providers: [ 
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
+    
+
   ],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
   ],
+  
 })
 export class AppModule { }

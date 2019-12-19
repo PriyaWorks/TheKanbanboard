@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Register } from '../model/register.model';
 import { Login } from '../model/login.model';
+import { MatSnackBar } from '@angular/material'; 
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +22,18 @@ export class AuthService {
   private name: string;
   private projectid: string;
   private loginName: string;
+private projectname: string;
 
   constructor(private http: HttpClient,
-              private router: Router) { }
+              private router: Router,
+              private snackBar: MatSnackBar,) { }
 
   getToken(){ return this.token; }
   getFirstName(){ return this.firstname; }
   getLastName(){ return this.lastname; }
   getName(){
     this.name = this.firstname + this.lastname;
+    console.log(this.name)
     return this.name;
   }
   getIsAuth(){ return this.isAuthenticated; }
@@ -42,12 +47,16 @@ export class AuthService {
   //   console.log(this.name)
   //   return this.name; 
   // }
-  // getProjectId(){
-  //   this.projectid = localStorage.getItem('projectid');
-  //   console.log(this.projectid);
-  //   return this.projectid;
-    
-  // }
+  /* getProjectId(){
+    this.projectid = localStorage.getItem('_id'); 
+    console.log(this.projectid);
+    return this.projectid;
+  } */
+  getProjectName(){
+    this.projectname = localStorage.getItem('projectname');
+    console.log(this.projectname);
+    return this.projectname;
+  }
 
   createUser(user : Register ){
     this.http.post<{token: string, expiresIn: number, firstname: string, lastname: string,
@@ -69,11 +78,18 @@ export class AuthService {
                         const now = new Date();
                         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
                         //console.log(expirationDate);
-                        this.saveAuthData(token, expirationDate, this.lastname, this.firstname);
+                        this.saveAuthData(token, expirationDate, this.firstname, this.lastname);
                         this.router.navigate(['/iteractive-form'])
-                      }
+                      } this.snackBar.open(res['message'], '', {
+                        duration: 50,
+                        verticalPosition: 'top'
+                      });
                     });
-  }
+                  }               
+                    // },error => {
+                    //   this.authStatusListener.next(false);
+                    // });
+  
 
   userLogin(login : Login){
     this.http.post<{token: string, expiresIn: number, firstname: string, lastname: string,
@@ -95,11 +111,14 @@ export class AuthService {
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           //console.log(expirationDate);
-          this.saveAuthData(token, expirationDate, this.lastname, this.firstname);
+          this.saveAuthData(token, expirationDate, this.firstname,this.lastname);
           this.router.navigate(['/dashboard'])
-        }
-      })
-  }
+        }this.snackBar.open(res['message'], '', {
+          duration: 50,
+          verticalPosition: 'top'
+        });
+      });
+    }  
 
   autoAuthUser(){
     const authInformation = this.getAuthData();
@@ -130,6 +149,7 @@ export class AuthService {
     this.loginName = null;
     this.name = null;
     this.projectid = null;
+    this.projectname = null;
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.router.navigate(['/home']);
@@ -160,6 +180,7 @@ export class AuthService {
     localStorage.removeItem("fname");
     localStorage.removeItem("name");
     localStorage.removeItem("projectid");
+    localStorage.removeItem("projectname");
   }
 
   private getAuthData() {
@@ -178,6 +199,12 @@ export class AuthService {
   }
 
 
-
+  private _listners = new Subject<any>();
+  listen(): Observable<any> {
+    return this._listners.asObservable();
+  }
+  filter(filterBy : string){
+    this._listners.next(filterBy);
+  }
 
 }
