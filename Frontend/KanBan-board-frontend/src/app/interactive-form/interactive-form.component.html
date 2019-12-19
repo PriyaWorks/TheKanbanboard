@@ -1,0 +1,96 @@
+<div class="bg-image" >
+        <div class="container">
+        <div>
+            <p [hidden]= true class="p-5">
+                Angular is running in the development mode. Call enableProdMode() to enable the production mo
+            </p>
+        </div>
+        <div></div>
+        <div class="heading">
+            <h3 class="">
+                Welcome {{firstname}} {{lastname}}, Lets get Started by converting<br> your ideas or goals into project
+            </h3>
+        </div>
+        <div class="animated bounceInUp slow " id="form-custom">
+        <form #projectForm="ngForm" novalidate (ngSubmit)="onCreateProject(projectForm)">
+            <div class="form-group p-5 question" *ngIf="isShow1">
+                <label for="projectname" class="mt-2">What is Your Idea or Goal?</label>
+                    <input type="text" #projectname="ngModel" [class.is-invalid]="projectname.invalid && projectname.touched"
+                        class="form-control mt-2" name="projectname" id="projectname" placeholder="Enter your idea"
+                        [(ngModel)]="project.projectname" required>
+                    <span class="text-danger mt-2" [class.d-none]="projectname.valid || projectname.untouched">projectname is required</span>
+                    <br>
+                    <div class="form-group justify-content-center">
+                         <button mat-raised-button class="btn btn-custom m-2 " (click)="onNext1()">Next</button>
+                    </div>
+            </div>
+            <div class="form-group animated bounceInUp slower p-5 question" *ngIf="isShow2">
+                <label for="projectdescription" class="mt-2">Describe your idea or goal</label>
+                    <textarea type="text" #projectdescription="ngModel" 
+                    class="form-control mt-2" name="projectdescription" placeholder="Enter project description" id="projectdescription"
+                    [(ngModel)]="project.projectdescription" row="3"></textarea>
+                <button mat-raised-button class="btn btn-custom m-2" (click)="onNext2()">Next</button>
+            </div>
+            <div class="form-group animated bounceInUp slower p-5 question" *ngIf="isShow3">
+                <label for="projectstartdate" class="mt-2">What is scheduled start date?</label>
+                <input type="text"  #projectstartdate="ngModel" [class.is-invalid]="projectstartdate.invalid && projectstartdate.touched"
+                class="form-control mt-2" name="projectstartdate" placeholder="Enter project start date" id="projectstartdate"
+                 [bsConfig]="datePickerConfig" [(ngModel)]="project.projectstartdate" bsDatepicker [bsConfig]="{ isAnimated: true }" required>
+                <span class="text-danger mt-2" [class.d-none]="projectstartdate.valid || projectstartdate.untouched">
+                    Project start date is required
+                </span>
+                <br>
+                <button mat-raised-button class="btn btn-custom m-2" (click)="onNext3()">Next</button>
+            </div>
+            <div class="form-group animated bounceInUp slower p-5 question" *ngIf="isShow4">
+                <label for="projectduedate" class="mt-2">What is scheduled end date?</label>
+                <input type="text" placeholder="Enter project end date" #projectduedate="ngModel" 
+                [class.is-invalid]="projectduedate.invalid && projectduedate.touched" class="form-control mt-2" name="projectduedate" 
+                id="projectduedate" [(ngModel)]="project.projectduedate" 
+                [bsConfig]="datePickerConfig" bsDatepicker [bsConfig]="{ isAnimated: true }" required>
+                <span class="text-danger mt-2" [class.d-none]="projectduedate.valid || projectduedate.untouched">
+                    Project end date is required
+                </span>  
+                <br>
+                <button mat-raised-button class="btn btn-custom m-2" (click)="onNext4()">Next</button>
+            </div>
+            
+            <div class="form-group animated bounceInUp slower p-5 question" *ngIf="isShow5">
+                <label for="todoworklimit" class="mt-2">Set to do work limit</label>
+                <input type="number" placeholder="Enter number" #todoworklimit="ngModel" 
+                [class.is-invalid]="todoworklimit.invalid && todoworklimit.touched" class="form-control mt-2" name="todoworklimit" 
+                id="todoworklimit" [(ngModel)]="project.todoworklimit" required>
+                <span class="text-danger mt-2" [class.d-none]="todoworklimit.valid || todoworklimit.untouched">
+                    Project work limit should be required in number 
+                </span>
+                <br>
+                <button mat-raised-button class="btn btn-custom m-2" (click)="onNext5()">Next</button>
+            </div>
+            <div class="form-group animated bounceInUp slower p-5 question" *ngIf="isShow6">
+                <label for="wipworklimit" class="mt-2">Set Work In Progress work limit</label>
+                <input type="number" placeholder="Enter number" #wipworklimit="ngModel" 
+                [class.is-invalid]="wipworklimit.invalid && wipworklimit.touched" class="form-control mt-2" name="wipworklimit" 
+                id="wipworklimit" [(ngModel)]="project.wipworklimit" required>
+                <span class="text-danger mt-2" [class.d-none]="wipworklimit.valid || wipworklimit.untouched">
+                    Project work in progress limit should be required in number
+                </span>
+                <br>
+                <button mat-raised-button class="btn btn-custom m-2" (click)="onNext6()">Next</button>
+            </div>
+            <div class="form-group animated bounceInUp slower p-5 question" *ngIf="isShow7">
+                <label for="doneworklimit" class="mt-2">Set Done Work Limit</label>
+                <input type="number" placeholder="Enter number" #doneworklimit="ngModel" 
+                [class.is-invalid]="doneworklimit.invalid && doneworklimit.touched" class="form-control mt-2" name="doneworklimit" 
+                id="doneworklimit" [(ngModel)]="project.doneworklimit" required>
+                <span class="text-danger mt-2" [class.d-none]="doneworklimit.valid || doneworklimit.untouched">
+                    Project done work should be required in number
+                </span>
+                <br>
+                <button mat-raised-button class="btn btn-custom m-2" type="submit" (click)="onNext7()">
+                    Create Project
+                </button>
+            </div> 
+        </form>
+        </div>
+        </div>
+    </div>

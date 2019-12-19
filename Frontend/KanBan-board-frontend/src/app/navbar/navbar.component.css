@@ -1,0 +1,38 @@
+.navbar{
+    background-color: #2c7fb8;
+    color: white;
+}
+a.nav-link {
+    color: white;
+    font-size: 20px;
+}
+.navbar-brand{
+    color: white;
+    font-size: 25px;
+}
+.nav-item a{
+    color: white;
+    font-size: 20px;
+}
+.active{
+    color: #ffd949!important;
+}
+.nav-item a:hover{
+    color: #ffd949;
+}
+button .btn{
+    background-color: transparent;
+}
+.btn{
+    color: white;
+    font-size: 20px;
+}
+button .btn:hover{
+    color: #ffd949;
+}
+.navbar-2{
+    background-color: rgba(0,0,0,.5);
+}
+.iteractive{
+    display: none;
+}

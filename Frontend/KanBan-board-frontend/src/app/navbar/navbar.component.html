@@ -1,0 +1,183 @@
+<nav class="navbar navbar-expand-sm">
+    <a href="#" class="navbar-brand">The Kanban board</a>
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMenu" >
+        <ul class="navbar-nav ml-auto" >
+            <li class="nav-item" *ngIf="!userIsAuthenticated == linkDisable" >
+                <a href="#" class="nav-link"  data-toggle="modal" data-target="#loginModal" (click)="openModal(loginTemplate)"
+                routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    Login
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="!userIsAuthenticated == linkDisable">
+                <a href="#" class="nav-link" data-toggle="modal" data-target="#registerModal" (click)="openModal(registerTemplate)"
+                routerLink="/register" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Register</a>
+            </li>
+            
+        </ul>
+        <ul class="nav navbar-nav " *ngIf="userIsAuthenticated">
+            <button class="btn" (click)="onLogout()">Logout </button>
+        </ul>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-sm navbar-2" *ngIf="userIsAuthenticated">
+        <div class="container">
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown" >
+        <ul class="navbar-nav ml-auto" >
+            <!-- <li class="nav-item" >
+                <a href="#" class="nav-link" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item" >
+                <a href="#" class="nav-link iteractive" routerLink="/iteractive-form" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    Iteractive form
+                </a>
+            </li> -->
+            <li class="nav-item" >
+                <a href="#" class="nav-link" routerLink="/kanban-board" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    Kanban Board
+                </a>
+            </li>
+            <li class="nav-item" >
+                <a href="#" class="nav-link" routerLink="/project/create-project" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    Create Project
+                </a>
+            </li>
+            <li class="nav-item" >
+                <a href="#" class="nav-link" routerLink="/project/update-project" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    Update Project
+                </a>
+            </li>
+            <li class="nav-item" >
+                <a href="#" class="nav-link" routerLink="/task/create-task" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    Create Task
+                </a>
+            </li>
+            <li class="nav-item" >
+                <a href="#" class="nav-link" routerLink="/kanban-board" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    Update Task
+                </a>
+            </li>
+            <li class="nav-item dropdown ml-2 mr-2" >
+                <button class="btn dropdown-toggle" id="navbarDropdownMenuLink" type="button" data-toggle="dropdown" aria-haspopup="true" 
+                    aria-expanded="false" >
+                    Project
+                </button>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#" >Create Project</a>
+                    <a class="dropdown-item" href="#">Update Project</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" 
+                    routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    Task
+                </a>
+                <div class="dropdown-menu" >
+                    <a class="dropdown-item" href="#">Create Task</a>
+                    <a class="dropdown-item" href="#">Update Task</a>
+                </div>
+            </li> 
+        </ul>
+    </div>
+</div>
+</nav>
+
+<router-outlet></router-outlet>
+
+<ng-template #loginTemplate>
+    <app-login></app-login>
+</ng-template>
+<ng-template #registerTemplate>
+    <app-register></app-register>
+</ng-template> 
+
+     
+
+<!-- Register modal -->
+<!-- <div class="modal " id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalTitle" 
+    aria-hidden="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalTitle">Register</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <div class="modal-body">
+                <form #userForm="ngForm" novalidate (ngSubmit)="onRegister(userForm)">
+
+                    <div class="form-group row">
+                        <div class="col">
+                            <label for="firstname" class="col-sm-2 col-form-label">First name</label>
+                            <div class="col-sm-8">
+                            <input type="text" #username="ngModel" [class.is-invalid]="firstname.valid && firstname.touched"
+                                class="form-control" name="firstname" placeholder="Enter firstname"
+                                [(ngModel)]="createUser.username" required>
+                            <span class="text-danger" [class.d-none]="firstname.valid || firstname.untouched">First name is required</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="firstname" class="col-sm-2 col-form-label">Last name</label>
+                            <div class="col-sm-8">
+                            <input type="text" #username="ngModel" [class.is-invalid]="firstname.invalid && firstname.touched"
+                                class="form-control" name="firstname" placeholder="Enter firstname"
+                                [(ngModel)]="createUser.username" required>
+                            <span class="text-danger" [class.d-none]="firstname.valid || firstname.untouched">First name is required</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="from-group row">
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-8">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email"
+                            [class.is-invalid]="email.invalid && email.touched" #email="ngModel" 
+                            [(ngModel)]="createUser.email" required
+                            pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$">
+                        <span class="text-danger" *ngIf="email.errors?.required && email.touched">Email is required</span>
+                        <span class="text-danger" *ngIf="email.errors?.pattern && email.touched">Email is invalid</span>
+                        </div>
+                    </div>
+                                  
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-3 col-md-2 col-form-label">Password</label>
+                        <div class="col-sm-6 col-md-5">
+                            <input type="password" #password="ngModel" [class.is-invalid]="password.invalid && password.touched"
+                                class="form-control" name="password" placeholder="Enter password"
+                                [(ngModel)]="createUser.password" required>
+                            <span class="text-danger" [class.d-none]="password.valid || password.untouched">password is required</span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="confirmPassword" class="col-md-2 col-form-label">Confirm Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" #confirmPassword="ngModel" [class.is-invalid]="confirmPassword.invalid && confirmPassword.touched"
+                                class="form-control" name="confirmPassword" placeholder="Enter confirm password"
+                                [(ngModel)]="createUser.confirmPassword" required>
+                            <span class="text-danger" [class.d-none]="confirmPassword.valid || confirmPassword.untouched">Confirm Password is required</span>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group row">
+                        <button type="submit" [disabled]="userForm.form.invalid" class="btn btn-primary col-sm-3 ml-4" >
+                            Create my account
+                        </button>
+                        <div class="col-sm-6">
+                            <p class="mt-3">Already registered user <a routerLink="/login" class="ml-2"><u> Login here</u></a></p>
+                        </div>
+                    </div>
+                </form>
+        </div>        
+        </div>
+    </div>
+</div> -->

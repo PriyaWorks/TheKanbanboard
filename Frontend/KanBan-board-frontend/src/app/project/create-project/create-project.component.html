@@ -1,0 +1,97 @@
+<div class="bg-image" >
+    <div class="container mt-5">
+            <mat-spinner *ngIf="isLoading"></mat-spinner>
+        <div class="heading">
+        <h3 class="">
+            Create Project
+        </h3>
+        </div>
+    <div class="row justify-content-center">
+    <div class="col-sm-10">
+    <div class="animated bounceIn slow form-custom" >
+    <form #projectForm="ngForm" novalidate (ngSubmit)="onCreateProject(projectForm)" class="form-align">
+        <div class="form-group row justify-content-center">
+            <label for="projectname" class="col-sm-2 col-form-label mt-2">Project name</label>
+            <div class="col-sm-6">
+                <input type="text" #projectname="ngModel" [class.is-invalid]="projectname.invalid && projectname.touched"
+                    class="form-control mt-2" name="projectname" id="projectname" placeholder="Enter your idea"
+                    [(ngModel)]="project.projectname" required>
+                <span class="text-danger mt-2" [class.d-none]="projectname.valid || projectname.untouched">projectname is required</span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center" >
+            <label for="projectdescription" class="col-sm-2 col-form-label mt-2">Project description</label>
+            <div class="col-sm-6">    
+            <textarea type="text" #projectdescription="ngModel" 
+                class="form-control mt-2" name="projectdescription" placeholder="Enter project description" id="projectdescription"
+                [(ngModel)]="project.projectdescription" row="3"></textarea>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <label for="projectstartdate" class="col-sm-2 col-form-label mt-2">Project start date</label>
+            <div class="col-sm-6">
+            <input type="text"  #projectstartdate="ngModel" [class.is-invalid]="projectstartdate.invalid && projectstartdate.touched"
+            class="form-control mt-2" name="projectstartdate" placeholder="Enter project start date" id="projectstartdate"
+                [bsConfig]="datePickerConfig" [(ngModel)]="project.projectstartdate" bsDatepicker [bsConfig]="{ isAnimated: true }" required>
+            <span class="text-danger mt-2" [class.d-none]="projectstartdate.valid || projectstartdate.untouched">
+                Project start date is required
+            </span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <label for="projectduedate" class="col-sm-2 col-form-label mt-2">Project end date</label>
+            <div class="col-sm-6">
+            <input type="text" placeholder="Enter project end date" #projectduedate="ngModel" 
+            [class.is-invalid]="projectduedate.invalid && projectduedate.touched" class="form-control mt-2" name="projectduedate" 
+            id="projectduedate" [(ngModel)]="project.projectduedate" 
+            [bsConfig]="datePickerConfig" bsDatepicker [bsConfig]="{ isAnimated: true }" required>
+            <span class="text-danger mt-2" [class.d-none]="projectduedate.valid || projectduedate.untouched">
+                Project end date is required
+            </span>  
+            </div>
+        </div>
+        
+        <div class="form-group row justify-content-center">
+            <label for="todoworklimit" class="col-sm-2 col-form-label mt-2">Project work limit</label>
+            <div class="col-sm-6">
+            <input type="number" placeholder="Enter number" #todoworklimit="ngModel" 
+            [class.is-invalid]="todoworklimit.invalid && todoworklimit.touched" class="form-control mt-2" name="todoworklimit" 
+            id="todoworklimit" [(ngModel)]="project.todoworklimit" required>
+            <span class="text-danger mt-2" [class.d-none]="todoworklimit.valid || todoworklimit.untouched">
+                Project work limit should be required in number 
+            </span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <label for="wipworklimit" class="col-sm-2 col-form-label mt-2">Project Work In Progress limit</label>
+            <div class="col-sm-6">
+            <input type="number" placeholder="Enter number" #wipworklimit="ngModel" 
+            [class.is-invalid]="wipworklimit.invalid && wipworklimit.touched" class="form-control mt-2" name="wipworklimit" 
+            id="wipworklimit" [(ngModel)]="project.wipworklimit" required>
+            <span class="text-danger mt-2" [class.d-none]="wipworklimit.valid || wipworklimit.untouched">
+                Project work in progress limit should be required in number
+            </span>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <label for="doneworklimit" class="col-sm-2 col-form-label mt-2">Project Done Work Limit</label>
+            <div class="col-sm-6">
+            <input type="number" placeholder="Enter number" #doneworklimit="ngModel" 
+            [class.is-invalid]="doneworklimit.invalid && doneworklimit.touched" class="form-control mt-2" name="doneworklimit" 
+            id="doneworklimit" [(ngModel)]="project.doneworklimit" required>
+            <span class="text-danger mt-2" [class.d-none]="doneworklimit.valid || doneworklimit.untouched">
+                Project done work should be required in number
+            </span>
+            </div>
+        </div> 
+        <div class="form-group row justify-content-center">
+        <button mat-raised-button type="submit" class="btn btn-custom ">
+            Create project
+        </button>
+    </div>
+    </form>
+    </div>
+    </div>
+</div>
+<div>
+</div>
