@@ -20,8 +20,10 @@ router.post('/addproject',(req,res,next)=>{
             .then(result => {
                 projectcreator = req.body.projectcreator
                 Project.find({projectcreator:projectcreator})
-                .then(result1 => {
-                    res.send(result1)
+                .then(result1 => {res.send
+                    ({
+                        message: "Your project has created successfully!"
+                    })
                 })
                 .catch(err => {
                     console.log(err);
@@ -125,7 +127,7 @@ router.post('/addtaskbyprojectid',(req,res,next)=>{
     }}})
      .then(result => {res.send
             ({
-                message: "task created"
+                message: "Your task has created successfully!"
             })
         })
         .catch(err => {
@@ -134,11 +136,34 @@ router.post('/addtaskbyprojectid',(req,res,next)=>{
     });
 
 router.get('/taskbytaskid',(req,res,next)=>{
-    taskid = req.query.taskid;
-    /* console.log(taskid) */
-    Project.findOne(taskid)
+    taskid = req.headers.taskid;
+    taskval = []
+    console.log(taskid)
+    Project.findOne({'tasks._id':taskid})
     .then(result => {
-        res.send(result)
+        taskval = result.tasks
+        /* taskval.forEach(element => {
+            if(element._id != taskid){
+                taskval.pop(element)
+            }
+            console.log("taskval:"+taskval)
+        }); */
+        var filtered = taskval.filter(function(value, index, arr){
+
+            return value._id == taskid;
+        });
+
+        var val ={
+            _id: filtered[0]._id,
+            taskname: filtered[0].taskname,
+            taskdescription : filtered[0].taskdescription,
+            taskstartdate : filtered[0].taskstartdate.substring(0,10),
+            taskduedate : filtered[0].taskduedate.substring(0,10),
+            taskpriority : filtered[0].taskpriority,
+            taskstatus : filtered[0].taskstatus
+        }
+
+        res.send(val)
     })
     .catch(err=>{
         console.log(err);
@@ -162,9 +187,10 @@ router.get('/taskbyprojectid',(req,res,next)=>{
 })
 
 router.post('/updatetask',(req,res,next)=>{
+    console.log("Inside Updatetask")
     projectid = req.headers.proid;
     taskid = req.headers.taskid;
-    taskname = req.body.name;
+    taskname = req.body.taskname;
     taskdescription =  req.body.taskdescription,
     taskcreationdate = req.body.taskcreationdate,
     taskstartdate = req.body.taskstartdate,
@@ -174,26 +200,27 @@ router.post('/updatetask',(req,res,next)=>{
     taskcreator = req.body.taskcreator,
     taskstatus = req.body.taskstatus,
     taskcomments = req.body.taskcomments
-    console.log(projectid)
-    console.log(taskid)
-    Project.findByIdAndUpdate({_id:projectid, 'Project._id': taskid },{$set:{
-
-        'tasks.$.taskname':taskname,
-        'tasks.$.taskdescription':taskdescription, 
-        'tasks.$.taskcreationdate':taskcreationdate,
-        'tasks.$.taskstartdate' : taskstartdate,
-        'tasks.$.taskduedate' : taskduedate,
-        'tasks.$.taskassignedto' : taskassignedto,
-        'tasks.$.taskpriority' : taskpriority,
+    console.log("ProjectId  "+projectid)
+    console.log("taskid  "+taskid)
+    console.log("taskname  "+taskname)
+    Project.updateOne({'tasks._id': taskid },
+    {$set: {
+        'tasks.$.taskname': taskname,
+        'tasks.$.taskdescription': taskdescription,
+        'tasks.$.taskcreationdate': taskcreationdate,
+        'tasks.$.taskstartdate': taskstartdate,
+        'tasks.$.taskduedate': taskduedate,
+        'tasks.$.taskassignedto': taskassignedto,
+        'tasks.$.taskpriority': taskpriority,
         'tasks.$.taskcreator' : taskcreator,
-        'tasks.$.taskstatus' : taskstatus,
-        'tasks.$.taskcomments' : taskcomments,
-    
-        }})
-    .then(result => {
-        res.send(result)
+        'tasks.$.taskstatus': taskstatus,
+        'tasks.$.taskcomments': taskcomments
+    }})
+    .then(result =>  {res.send
+        ({
+            message: "Your task has updated successfully!"
+        })
     })
-
     .catch(err=>{
         console.log(err);
     })
