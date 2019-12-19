@@ -95,7 +95,7 @@ export class AuthService {
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           //console.log(expirationDate);
-          this.saveAuthData(token, expirationDate, this.lastname, this.firstname);
+          this.saveAuthData(token, expirationDate,this.firstname, this.lastname );
           this.router.navigate(['/dashboard'])
         }
       })
@@ -148,6 +148,8 @@ export class AuthService {
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('firstname', firstname);
     localStorage.setItem('lastname', lastname);
+    console.log('firstname:'+firstname)
+    console.log('lastname:'+lastname)
   }
   
   // clear the data after logout
@@ -156,8 +158,8 @@ export class AuthService {
     localStorage.removeItem("expiration");
     localStorage.removeItem("firstname");
     localStorage.removeItem("lastname");
-    localStorage.removeItem("lname");
-    localStorage.removeItem("fname");
+    // localStorage.removeItem("lname");
+    // localStorage.removeItem("fname");
     localStorage.removeItem("name");
     localStorage.removeItem("projectid");
   }

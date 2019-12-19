@@ -42,6 +42,8 @@ export class ProjectService {
   }
 
   createProject(project : CreateProject){
+    this.loginname = this.authService.getName();
+    var ram = this.loginname 
     return this.http.post('http://localhost:3700/api/project/addproject', project)
     .subscribe(res => {
       console.log(res);

@@ -104,7 +104,6 @@ export class InteractiveFormComponent implements OnInit {
     return this.isShow6 = false, this.isShow7 = true;
   }
   onNext7(){
-    
   }
   
   onCreateProject(){

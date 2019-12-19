@@ -37,12 +37,11 @@ export class CreateProjectComponent implements OnInit {
   ngOnInit() {
    this.loginname = this.authService.getName();
   }
+
   onCreateProject(projectForm: NgForm){
     if(projectForm.invalid){ return; }
     this.isLoading = true;
     this.project.projectcreator = this.loginname;
-    console.log(this.loginname);
-    console.log(this.project);
     this.projectService.createProject(projectForm.value);
     this.router.navigate(['/dashboard']);
   }
